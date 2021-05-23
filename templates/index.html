@@ -44,7 +44,7 @@
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="" method="POST">
+          <form action="/collections/" method="post">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Pengambilan</h5>
               <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -52,12 +52,27 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Kamu ingin mengambil makanan sebagai {{user.username}} ?</p>
-              <input type="hidden" value="{{user.username}}">
+              <div class="row g-3 align-items-center">
+                <div class="col-4">
+                  <label for="input-username" class="col-form-label fs-6">Pengambil</label>
+                </div>
+                <div class="col-8">
+                  <input type="text" name="collector" value="{{ user.username}}" class="form-control" id="input-username" required disabled>
+                </div>
+              </div>
+              <div class="row g-3 align-items-center">
+                <div class="col-4">
+                  <label for="input-text" class="col-form-label fs-6">Nama Restoran</label>
+                </div>
+                <div class="col-8">
+                  {{form.collected_item}}
+                </div>
+              </div>
+              {% csrf_token %}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-              <button type="button" class="btn btn-primary">Ambil</button>
+              <button type="submit" class="btn btn-primary">Ambil</button>
             </div>
           </form>
         </div>
