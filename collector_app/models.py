@@ -7,3 +7,7 @@ class Collection(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     collector = models.ForeignKey(User,on_delete=models.PROTECT)
     collected_item = models.TextField()
+
+class CollectionCount(models.Model):
+    collector = models.ForeignKey(User,on_delete=models.PROTECT)
+    collect_count = models.IntegerField()
