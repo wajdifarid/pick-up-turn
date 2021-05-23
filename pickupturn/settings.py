@@ -105,7 +105,12 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+        'APP': {
+            'client_id': os.environ['GOOGLE_OAUTH_CLIENT_ID'],
+            'secret': os.environ['GOOGLE_OAUTH_SECRET_KEY'],
+            'key': ''
+        },
     }
 }
 
