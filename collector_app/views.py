@@ -36,7 +36,7 @@ def collect(request, *args, **kwargs):
     form = CollectionForm()
     collection_data = defaultdict(int)
     users = User.objects.all()
-    
+
     collection_salman = CollectionCount.objects.filter(collector=users.filter(username="salman").first()).first()
     collection_farid = CollectionCount.objects.filter(collector=users.filter(username="farid").first()).first()
     collection_faizah = CollectionCount.objects.filter(collector=users.filter(username="faizah").first()).first()
@@ -45,4 +45,9 @@ def collect(request, *args, **kwargs):
     collection_data['farid'] = collection_farid.collect_count if collection_farid is not None else 0
     collection_data['faizah'] = collection_faizah.collect_count if collection_faizah is not None else 0
 
-    return render(request, 'index.html', {'form': form, 'collection_data':collection_data})
+    tmp_data = []
+    tmp_data.append((collection_data['salman'], -2, 'salman'))
+    tmp_data.append((collection_data['farid'], -1, 'farid'))
+    tmp_data.append((collection_data['faizah'], 0, 'faizah'))
+    tmp_data.sort()
+    return render(request, 'index.html', {'form': form, 'collection_data':collection_data, 'current_turn':tmp_data[0][2]})
