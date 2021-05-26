@@ -1,6 +1,6 @@
-from collector_app.views import collect
+from collector_app.views import get_collection
 from django.urls import path
 
 urlpatterns = [
-     path('', collect),
+     path('', get_collection, name='collections'),
 ]

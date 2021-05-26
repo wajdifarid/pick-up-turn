@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block title %}Pick Up Turn | History{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<h1>History Pengambilan</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Waktu Pengambilan</th>
+            <th scope="col">Pengambil</th>
+            <th scope="col">Makanan</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for collection in collections %}
+        <tr>
+            <td>{{collection.created_at}}</td>
+            <td>{{collection.collector}}</td>
+            <td>{{collection.collected_item}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<div class="row">
+  <div class="col-8 offset-2"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
+      href="{% provider_login_url 'google' %}"><img src="https://img.icons8.com/color/16/000000/google-logo.png">
+      Login With Google</a> </div>
+</div>
+{% endif %}
+{% endblock %}
