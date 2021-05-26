@@ -31,7 +31,7 @@ def get_collection(request, *args, **kwargs):
         form = CollectionForm(request.POST)
 
         if form.is_valid():
-            messages.success(request, "Form submission successful")
+            messages.success(request, "Data pengambilan telah disimpan")
             collection = form.save(commit=False)
             collection.collector = request.user
             collection.save()

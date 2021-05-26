@@ -5,13 +5,17 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+
 {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-    {% endfor %}
-</ul>
+  {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success"" role="alert">
+      {{message}}
+    </div>
+    {% endif %}
+  {% endfor %}
 {% endif %}
+
 <p>Welcome, You are logged in as <b>{{ user.username }}</b></p>
 
 <h2>
@@ -76,7 +80,7 @@
   <ul>
     <li>Salman: {{collection_data.salman}}
     <li>Farid: {{collection_data.farid}}
-    <li>Faizah: {{collection_data.faizah}} 
+    <li>Faizah: {{collection_data.faizah}}
   </ul>
 </div>
 {% else %}
