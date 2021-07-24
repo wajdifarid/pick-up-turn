@@ -16,21 +16,25 @@
   {% endfor %}
 {% endif %}
 
-<p>Welcome, You are logged in as <b>{{ user.username }}</b></p>
+<br><br><br>
+<p>Welcome, You are logged in as <b>{{request.user.get_short_name}}</b></p>
 
-<h2>
+<h2 style="text-align: center; font-weight: bold;">
   Sekarang Giliran:
 </h2>
 <div>
-  <p class="text-uppercase fs-6">
-    {{current_turn}}
+  <p class="text-uppercase fs-6 shape-giliran">
+    <span style="font-size: 55px; color: #5B415A; font-weight: bold;">{{current_turn}}</span>
   </p>
 </div>
+<br>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Ambil Makanan
-</button>
+<div style="text-align: center;">
+  <button type="button" class="btn btn-primary button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius: 10px; font-weight: 600; width: 13%;">
+    Ambil Makanan
+  </button>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -40,7 +44,7 @@
       <form action="/collections/" method="post">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Pengambilan</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" style="background-color: white; border-style: hidden;" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -65,29 +69,36 @@
           {% csrf_token %}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-primary">Ambil</button>
+          <button type="button" class="btn btn-secondary button" data-bs-dismiss="modal" style="background: black;">Batal</button>
+          <button type="submit" class="btn btn-primary button">Ambil</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<br>
 
 
-
-<div>
-  Skor Pengambilan:
+<div style="text-align: center;">
+  <h4>Skor Pengambilan:</h4>
   <ul>
-    <li>Salman: {{collection_data.salman}}
-    <li>Farid: {{collection_data.farid}}
-    <li>Faizah: {{collection_data.faizah}}
+    <span class="shape-score">
+      Salman: {{collection_data.salman}}<br>
+      Farid: {{collection_data.farid}}<br>
+      Faizah: {{collection_data.faizah}}
+    </span>
   </ul>
 </div>
 {% else %}
-<div class="row">
-  <div class="col-8 offset-2"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
+<br><br><br><br><br>
+<div class="row parent">
+  <div class="col-8 offset-2 child"> 
+    <a href="/"><img src="static/img/pickupturn-big-logo.png"></a>
+    <br><br>
+    <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
       href="{% provider_login_url 'google' %}"><img src="https://img.icons8.com/color/16/000000/google-logo.png">
-      Login With Google</a> </div>
+      Login With Google</a> 
+  </div>
 </div>
 {% endif %}
 {% endblock %}
