@@ -1,5 +1,5 @@
 from collections import defaultdict
-from collector_app.models import CollectionCount, Collection
+from collector_app.models.collection import Collection
 from collector_app.forms import CollectionForm
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -35,16 +35,6 @@ def get_collection(request, *args, **kwargs):
             collection = form.save(commit=False)
             collection.collector = request.user
             collection.save()
-            collection_count = CollectionCount.objects.filter(
-                collector=request.user
-            ).first()
-            if collection_count is None:
-                collection_count = CollectionCount(
-                    collector=request.user, collect_count=0
-                )
-                collection_count.save()
-            collection_count.collect_count += 1
-            collection_count.save()
             form = CollectionForm()
             collection_data, current_person = get_turn_data()
             return render(
@@ -66,25 +56,20 @@ def get_turn_data():
     collection_data = defaultdict(int)
     users = User.objects.all()
 
-    collection_salman = CollectionCount.objects.filter(
+    collection_salman = Collection.objects.filter(
         collector=users.filter(username="salman").first()
-    ).first()
-    collection_farid = CollectionCount.objects.filter(
+    ).count()
+    collection_farid = Collection.objects.filter(
         collector=users.filter(username="farid").first()
-    ).first()
-    collection_faizah = CollectionCount.objects.filter(
+    ).count()
+    collection_faizah = Collection.objects.filter(
         collector=users.filter(username="faizah").first()
-    ).first()
+    ).count()
 
-    collection_data["salman"] = (
-        collection_salman.collect_count if collection_salman is not None else 0
-    )
-    collection_data["farid"] = (
-        collection_farid.collect_count if collection_farid is not None else 0
-    )
-    collection_data["faizah"] = (
-        collection_faizah.collect_count if collection_faizah is not None else 0
-    )
+    collection_data["salman"] = collection_salman 
+    collection_data["farid"] = collection_farid 
+    collection_data["faizah"] = collection_faizah 
+    
 
     tmp_data = []
     tmp_data.append((collection_data["salman"], -2, "salman"))
